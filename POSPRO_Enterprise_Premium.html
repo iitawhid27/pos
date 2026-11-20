@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a2c82"><title>POSPRO Enterprise</title>
+<style>
+:root{--navy:#0f2a5c;--navy2:#061d5c;--blue:#2563eb;--yellow:#f2b84b;--bg:#f1f4f9;--text:#14213d;--muted:#72809a;--line:#e1e8f4;--green:#0d8a6a;--red:#d93645;--shadow:0 4px 18px #1a3a7a14}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 "Inter","Noto Sans Bengali",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.sidebar{position:fixed;inset:0 auto 0 0;width:232px;background:linear-gradient(180deg,#112f68,#0a1b3f);color:#fff;padding:18px 12px;overflow:auto;z-index:5;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:9px;padding:2px 10px 16px;font-size:24px;font-weight:900;letter-spacing:-.3px}.brand span{color:var(--yellow)}
+.navgroup{font-size:11px;color:#9bb8f0;padding:14px 10px 5px}
+.nav{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:#e3ecff;padding:9px 11px;border-radius:9px;text-align:left;margin:1px 0;font-size:13px}
+.nav i{font-style:normal;width:20px;text-align:center}
+.nav:hover{background:#ffffff14}.nav.active{background:#2563eb;color:#fff;box-shadow:0 4px 12px #2563eb55}
+.sidefoot{margin-top:auto;padding:12px 10px 0;font-size:11px;color:#b9cdf5;border-top:1px solid #ffffff22}
+.main{margin-left:232px;min-height:100vh}
+.topbar{height:58px;background:#0f2a5c;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:4}
+.topbar strong{display:none;font-size:18px;font-weight:900}.topbar strong span{color:var(--yellow)}
+.topright{display:flex;align-items:center;gap:12px;margin-left:auto;font-size:12px}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-weight:800}
+.topbar button{background:#ffffff1f;border:1px solid #ffffff33;color:#fff;border-radius:8px;padding:6px 10px}
+.mobilebtn{display:none}
+.content{padding:22px 24px 30px;max-width:1600px;margin:auto}
+.pagehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.pagehead h1{font-size:24px;font-weight:800;margin:0}
+.pill{background:#fff;border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:20px;font-size:12px}
+.btn{border:0;border-radius:9px;padding:9px 15px;font-size:13px;font-weight:650;background:var(--blue);color:#fff}.btn:hover{filter:brightness(1.08)}
+.btn.secondary{background:#eaf1fd;color:#174d9e;border:1px solid #d5e2f5}.btn.danger{background:#ffe9eb;color:#b72232}.btn.success{background:var(--green)}.btn.small{padding:5px 10px;font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:14px}.cards:first-child{margin-top:0}
+.metric,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);min-width:0}
+.metric .mi{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#fff;font-size:20px;margin-bottom:10px;box-shadow:0 2px 8px #0000000f}
+.metric .label{font-size:12px;color:var(--muted)}.metric .value{font-size:25px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
+.t-blue{background:#e8f1ff;border-color:#d3e4ff}.t-blue .value{color:#1558c8}
+.t-green{background:#e6f7ec;border-color:#cdeed8}.t-green .value{color:#0d8a43}
+.t-orange{background:#fff1e0;border-color:#fde0bb}.t-orange .value{color:#c76a0a}
+.t-purple{background:#f1e9ff;border-color:#e2d3fb}.t-purple .value{color:#6b35c9}
+.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-top:14px}.grid2.eq{grid-template-columns:1fr 1fr}
+.panel h3{font-size:15px;font-weight:750;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.legend{font-size:11px;font-weight:500;color:var(--muted)}.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 4px 0 8px}
+.redh{color:var(--red)}.lowhead{color:var(--red);font-weight:700;margin-bottom:6px}
+.lowrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f3f9}.lowrow small{color:var(--muted);margin-left:4px}
+.viewall{display:block;text-align:right;margin-top:10px;color:var(--blue);font-weight:650;cursor:pointer}
+.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:13px}
+th{text-align:left;background:#f4f8ff;color:#5d6d8a;font-weight:650;padding:10px 9px}td{padding:11px 9px;border-bottom:1px solid #edf1f7}tr:last-child td{border-bottom:0}
+.tag{border-radius:20px;padding:3px 10px;background:#e6f7ee;color:#087c45;font-size:11px;font-weight:600}.tag.warn{background:#fff3df;color:#a45b00}.tag.bad{background:#ffebed;color:#b42332}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.toolbar input,.toolbar select,.field input,.field select,.field textarea{border:1px solid #d9e3f3;border-radius:9px;padding:10px 12px;background:#fff;color:var(--text);min-width:0}
+.toolbar input:focus,.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px #2563eb26}
+.toolbar input{flex:1;min-width:150px}
+.formgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#5d6b83}.field input,.field select,.field textarea{width:100%;font-size:13px}.field.full{grid-column:1/-1}
+.formactions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.hidden{display:none!important}.empty{text-align:center;color:#8995a8;padding:26px}
+.reportfilters{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px;margin-bottom:14px}.hint{font-size:12px;color:var(--muted);line-height:1.6}
+.modalback{position:fixed;inset:0;background:#071a3b99;backdrop-filter:blur(3px);z-index:20;display:grid;place-items:center;padding:15px}
+.modal{background:#fff;border-radius:18px;padding:22px;width:min(720px,100%);max-height:90vh;overflow:auto;box-shadow:0 20px 60px #00163c55}
+.modal h2{font-size:18px;margin:0 0 16px}.modalhead{display:flex;justify-content:space-between;align-items:center}.xbtn{border:0;background:#eef2f8;border-radius:8px;padding:6px 10px}
+.loginback{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at 20% 10%,#2563eb,#061d5c 70%)}
+.loginbox{width:min(340px,100%);display:flex;flex-direction:column;gap:12px;align-items:stretch;color:#fff;text-align:center}
+.loginbox .brand{justify-content:center;font-size:34px;flex-direction:column;gap:2px}
+.loginbox input{border:0;border-radius:10px;padding:13px 14px;background:#fff;font-size:14px}
+.loginbox .btn{padding:13px;font-size:15px}.loginbox small{color:#b9cdf5}
+.bnav{display:none}
+@media(max-width:950px){.sidebar{width:206px}.main{margin-left:206px}.cards{grid-template-columns:repeat(2,1fr)}.reportfilters{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:680px){.sidebar{transform:translateX(-105%);transition:transform .2s;width:250px;z-index:30}.sidebar.open{transform:translateX(0)}.main{margin:0;padding-bottom:64px}.mobilebtn{display:inline-block}.topbar strong{display:inline-block;margin-left:6px}.topbar{padding:0 12px;height:54px}.topright .welcome{display:none}.content{padding:14px 10px}.pagehead h1{font-size:20px}.cards{gap:10px}.metric{padding:13px}.metric .value{font-size:19px}.grid2,.grid2.eq{grid-template-columns:1fr}.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.reportfilters{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:6;background:#fff;border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}.bnav button{flex:1;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;font-size:18px;color:var(--navy);gap:0}.bnav span{font-size:10px;color:var(--muted)}}
+
+.metric{position:relative;padding:18px 18px 18px 24px;background:#fff;border:1px solid var(--line)}
+.metric::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:4px;border-radius:0 4px 4px 0;background:#2563eb}
+.t-green::before{background:#0d9488}.t-orange::before{background:#d97706}.t-purple::before{background:#4f46e5}
+.metric .mi{display:none}
+.metric .value{color:#0f2a5c;font-size:26px;font-weight:750}
+.metric .label{font-size:12.5px;color:#64748b}
+.nav i{filter:grayscale(1) brightness(2)}
+.panel{border-color:#e2e8f0;box-shadow:0 1px 2px #0f2a5c0a,0 6px 20px #0f2a5c0a}
+th{background:#f6f8fc;color:#64748b}
+.pagehead h1{color:#0f2a5c}
+.optgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}.optgrp h4{margin:0 0 8px;font-size:13px;color:#0f2a5c}.optgrp .field{margin-top:8px}.sw{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;font-size:13px}.sw input{display:none}.sw i{width:34px;height:20px;border-radius:20px;background:#cbd5e1;position:relative;transition:background .15s;flex:none}.sw i::after{content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .15s}.sw input:checked+i{background:#2563eb}.sw input:checked+i::after{left:16px}
+</style>
+</head>
+<body><div class="layout">
+<aside class="sidebar" id="sidebar"><div class="brand"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 10.5h9.6L20 7H6.2"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg><div>POS<span>PRO</span></div></div>
+<div class="navgroup">Overview</div>
+<button class="nav active" data-page="Dashboard"><i>🏠</i>Dashboard</button>
+<div class="navgroup">Inventory</div>
+<button class="nav" data-page="Products"><i>📦</i>Products</button><button class="nav" data-page="Categories"><i>🗂</i>Categories</button><button class="nav" data-page="Brands"><i>🏷</i>Brands</button><button class="nav" data-page="Stock"><i>📊</i>Stock</button>
+<div class="navgroup">Business</div>
+<button class="nav" data-page="Sales"><i>🛍</i>Sales</button><button class="nav" data-page="Purchase"><i>🛒</i>Purchase</button><button class="nav" data-page="Customers"><i>👤</i>Customers</button><button class="nav" data-page="Suppliers"><i>🚚</i>Suppliers</button><button class="nav" data-page="Expenses"><i>💳</i>Expenses</button><button class="nav" data-page="Payments"><i>🔁</i>Payments</button>
+<div class="navgroup">Control</div><button class="nav" data-page="Reports"><i>📄</i>Reports</button><button class="nav" data-page="Users"><i>👥</i>Users</button><button class="nav" data-page="Settings"><i>⚙️</i>Settings</button>
+<button class="nav" onclick="logout()"><i>⎋</i>Logout</button></aside>
+<main class="main"><header class="topbar"><div><button class="mobilebtn" id="menuBtn">☰</button> <strong>POS<span>PRO</span></strong></div><div class="topright"><span class="welcome">Welcome, Admin</span><span class="avatar">A</span><button onclick="go('Settings')">⚙</button></div></header>
+<div class="content"><div class="pagehead"><div><h1 id="title">Dashboard</h1></div><span class="pill" id="today"></span></div><div id="view"></div></div></main></div>
+<nav class="bnav"><button onclick="go('Dashboard')">🏠<span>Home</span></button><button onclick="go('Sales')">🛍<span>Sales</span></button><button onclick="go('Reports')">📄<span>Reports</span></button><button onclick="$('#sidebar').classList.toggle('open')">☰<span>More</span></button></nav><div id="login" class="loginback hidden"><form class="loginbox" id="loginForm"><div class="brand"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 10.5h9.6L20 7H6.2"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg><div>POS<span>PRO</span></div></div><input id="lgUser" placeholder="Email / Phone" autocomplete="username"><input id="lgPass" type="password" placeholder="Password" autocomplete="current-password" required><button class="btn">Login</button></form></div><div id="modalroot"></div>
+<script>
+const $=s=>document.querySelector(s), money=n=>(db.settings.currency||'৳')+' '+Number(n||0).toLocaleString('en-BD',{maximumFractionDigits:2}), today=()=>new Date().toISOString().slice(0,10);
+const dbKey='pospro_enterprise_v3';
+let db=JSON.parse(localStorage.getItem(dbKey)||'null')||{categories:[],brands:[],products:[],customers:[],suppliers:[],sales:[],purchases:[],expenses:[],payments:[],stock:[],users:[],settings:{company:'POSPRO',currency:'৳',pin:'1234'}};
+db.trash=db.trash||[];
+const OPT={showPrint:1,showCsv:1,showInvoice:1,showReportPrint:1,showChart:1,showAlert:1,showFinance:1,showRecent:1,printHeader:1,invContact:1,invPaid:1,paper:'A4',recentRows:6};
+const opt=k=>{let o=db.settings.opts||{};return k in o?o[k]:(k in OPT?OPT[k]:1)};
+const paperCss=()=>({'A4':'A4','A5':'A5','Thermal 80mm':'80mm auto'}[opt('paper')]||'A4');
+function applyNav(){document.querySelectorAll('.nav[data-page]').forEach(b=>{const p=b.dataset.page;b.classList.toggle('hidden',p!=='Dashboard'&&p!=='Settings'&&!opt('nav_'+p))})}
+let cloudClient=null, cloudAccount=null, cloudDatabases=null, cloudUser=null;
+let cloudSyncTimer=null, cloudBusy=false, cloudLastSync='';
+const cloudConfigKey='pospro_appwrite_config_v1';
+const readCloudConfig=()=>JSON.parse(localStorage.getItem(cloudConfigKey)||'{}');
+const save=()=>{db.trash=db.trash||[];
+  localStorage.setItem(dbKey,JSON.stringify(db));
+  if(cloudUser && cloudDatabases) scheduleCloudSync();
+};
+function scheduleCloudSync(){
+  clearTimeout(cloudSyncTimer);
+  cloudSyncTimer=setTimeout(()=>syncCloud(false),1800);
+}
+const configs={
+Products:{title:'Product Management',fields:[['name','Product Name','text',1],['sku','SKU / Barcode','text'],['category','Category','category'],['brand','Brand','brand'],['unit','Unit','text'],['purchasePrice','Purchase Price','number'],['salePrice','Sale Price','number'],['qty','Opening / Current Stock','number'],['minStock','Minimum Stock Alert','number'],['description','Description','text']]},
+Categories:{title:'Category Management',fields:[['name','Category Name','text',1],['description','Description','text']]},
+Brands:{title:'Brand Management',fields:[['name','Brand Name','text',1],['description','Description','text']]},
+Customers:{title:'Customer Management',fields:[['name','Customer Name','text',1],['phone','Phone','tel'],['email','Email','email'],['address','Address','text'],['openingDue','Opening Due','number']]},
+Suppliers:{title:'Supplier Management',fields:[['name','Supplier Name','text',1],['phone','Phone','tel'],['email','Email','email'],['address','Address','text'],['openingDue','Opening Due','number']]},
+Sales:{title:'Sales Entry',fields:[['date','Date','date',1],['invoice','Invoice Number','text'],['customer','Customer','customer'],['product','Product','product',1],['qty','Quantity','number',1],['price','Unit Sale Price','number',1],['discount','Discount','number'],['paid','Paid Amount','number'],['note','Note','text']]},
+Purchase:{title:'Purchase Entry',fields:[['date','Date','date',1],['invoice','Invoice Number','text'],['supplier','Supplier','supplier'],['product','Product','product',1],['qty','Quantity','number',1],['price','Unit Purchase Price','number',1],['discount','Discount','number'],['paid','Paid Amount','number'],['note','Note','text']]},
+Expenses:{title:'Expense Entry',fields:[['date','Date','date',1],['category','Expense Category','text',1],['description','Description','text'],['amount','Amount','number',1],['paidBy','Paid From','text'],['note','Note','text']]},
+Payments:{title:'Payment Entry',fields:[['date','Date','date',1],['type','Payment Type','select:Customer Receipt,Supplier Payment,Other Income,Other Expense',1],['party','Party / Account','text'],['amount','Amount','number',1],['method','Payment Method','select:Cash,Bank,bKash,Nagad,Rocket,Other'],['reference','Reference','text'],['note','Note','text']]},
+Stock:{title:'Stock Adjustment',fields:[['date','Date','date',1],['product','Product','product',1],['movement','Movement','select:Stock In,Stock Out,Damage,Correction',1],['qty','Quantity','number',1],['reason','Reason','text',1],['note','Note','text']]},
+Users:{title:'User & Role Register',fields:[['name','User Name','text',1],['phone','Phone','tel'],['role','Role','select:Admin,Manager,Accountant,Store Manager,Staff,Viewer',1],['status','Status','select:Active,Inactive'],['note','Note','text']]}
+};
+const moduleKeys={Products:'products',Categories:'categories',Brands:'brands',Customers:'customers',Suppliers:'suppliers',Sales:'sales',Purchase:'purchases',Expenses:'expenses',Payments:'payments',Stock:'stock',Users:'users'};
+let current='Dashboard',reportRows=[];
+function go(page){current=page;document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));$('#title').textContent=page==='Reports'?'All Reports':(configs[page]?.title||page);$('#sidebar').classList.remove('open');render();}
+document.querySelectorAll('.nav[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');$('#today').textContent=new Date().toLocaleDateString('en-GB');
+function records(k){return db[k]||[]}function sum(arr,key){return arr.reduce((a,x)=>a+Number(x[key]||0),0)}
+function total(r){return Math.max(0,Number(r.qty||0)*Number(r.price||0)-Number(r.discount||0))}
+function monthly(){let m=[],d=new Date();for(let i=5;i>=0;i--){let x=new Date(d.getFullYear(),d.getMonth()-i,1);m.push({k:x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0'),l:x.toLocaleString('en',{month:'short'}),s:0,p:0})}
+const add=(arr,f)=>arr.forEach(r=>{let o=m.find(z=>z.k===(r.date||r.createdAt||'').slice(0,7));if(o)o[f]+=total(r)});add(db.sales,'s');add(db.purchases,'p');return m}
+function chart(m){const W=560,H=210,L=48,B=28,T=12,mx=Math.max(1,...m.flatMap(z=>[z.s,z.p])),X=i=>L+i*(W-L-12)/5,Y=v=>T+(H-T-B)*(1-v/mx);
+const line=(f,c)=>`<polyline fill="none" stroke="${c}" stroke-width="2.5" points="${m.map((z,i)=>X(i)+','+Y(z[f])).join(' ')}"/>`+m.map((z,i)=>`<circle cx="${X(i)}" cy="${Y(z[f])}" r="3.5" fill="#fff" stroke="${c}" stroke-width="2"/>`).join('');
+return `<svg viewBox="0 0 ${W} ${H}" width="100%">${[0,.5,1].map(t=>`<line x1="${L}" x2="${W-12}" y1="${Y(mx*t)}" y2="${Y(mx*t)}" stroke="#e3eaf5"/><text x="${L-6}" y="${Y(mx*t)+4}" font-size="10" fill="#72809a" text-anchor="end">${Math.round(mx*t).toLocaleString()}</text>`).join('')}${m.map((z,i)=>`<text x="${X(i)}" y="${H-8}" font-size="11" fill="#72809a" text-anchor="middle">${z.l}</text>`).join('')}${line('s','#2563eb')}${line('p','#0d9488')}</svg>`}
+function dashboard(){const D=a=>a.reduce((x,r)=>x+Math.max(0,total(r)-Number(r.paid||0)),0),rec=D(db.sales),pay=D(db.purchases),exp=db.expenses.reduce((x,r)=>x+Number(r.amount||0),0);const S=a=>a.reduce((x,r)=>x+total(r),0),sales=S(db.sales),pur=S(db.purchases),sv=db.products.reduce((a,p)=>a+Number(p.qty||0)*Number(p.purchasePrice||0),0),low=db.products.filter(p=>Number(p.qty||0)<=Number(p.minStock||0));
+const tile=(c,i,l,v)=>`<div class="metric t-${c}"><div class="mi">${i}</div><div class="label">${l}</div><div class="value">${v}</div></div>`;
+return `<div class="cards">${tile('blue','📦','Total Products',db.products.length)}${tile('green','🛒','Total Sales',money(sales))}${tile('orange','🧾','Total Purchase',money(pur))}${tile('purple','💰','Profit',money(sales-pur))}</div>
+${opt('showFinance')?`<div class="cards">${tile('green','','Receivable (Due)',money(rec))}${tile('orange','','Payable (Due)',money(pay))}${tile('purple','','Expenses',money(exp))}${tile('blue','','Net Profit',money(sales-pur-exp))}</div>`:''}
+<div class="cards">${tile('blue','📊','Stock Value',money(sv))}${tile('green','🏷','Categories / Brands',db.categories.length+' / '+db.brands.length)}${tile('orange','⚠️','Low Stock',low.length)}${tile('purple','👥','Customers / Suppliers',db.customers.length+' / '+db.suppliers.length)}</div>
+<div class="grid2" style="${opt('showChart')&&opt('showAlert')?'':'grid-template-columns:1fr'}">${opt('showChart')?`<div class="panel"><h3>Sales Overview<span class="legend"><i style="background:#2563eb"></i>Sales<i style="background:#0d9488"></i>Purchase</span></h3>${chart(monthly())}</div>`:''}${opt('showAlert')?`<div class="panel"><h3 class="redh">⚠ Stock Alert</h3>${low.length?`<div class="lowhead">Low Stock Items (${low.length})</div>`+low.slice(0,6).map(p=>`<div class="lowrow"><span>${esc(p.name)}<small>${p.qty||0} ${esc(p.unit||'')}</small></span><button class="btn small danger" onclick="go('Stock')">View</button></div>`).join('')+`<a class="viewall" onclick="go('Products')">View All</a>`:'<div class="empty">সব প্রোডাক্টের স্টক ঠিক আছে</div>'}</div>`:''}</div>
+${opt('showRecent')?`<div class="grid2 eq"><div class="panel"><h3>Recent Sales</h3>${tableFor('Sales',db.sales.slice(-opt('recentRows')).reverse())}</div><div class="panel"><h3>Recent Purchases</h3>${tableFor('Purchase',db.purchases.slice(-opt('recentRows')).reverse())}</div></div>`:''}`}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function tableFor(mod,arr){if(!arr.length)return '<div class="empty">কোনো ডাটা নেই</div>';let cfg=configs[mod];let cols=cfg.fields.filter(f=>['name','date','invoice','product','customer','supplier','qty','price','amount','role','phone'].includes(f[0])).slice(0,5);return `<div class="tablewrap"><table><thead><tr>${cols.map(f=>`<th>${f[1]}</th>`).join('')}<th>Total</th><th>Action</th></tr></thead><tbody>${arr.map(r=>`<tr>${cols.map(f=>`<td>${esc(r[f[0]]||'')}</td>`).join('')}<td>${money(total(r)||r.amount||0)}</td><td>${(mod==='Sales'||mod==='Purchase')&&opt('showInvoice')?`<button class="btn small secondary" onclick="printInvoice('${mod}','${r.id}')">Invoice</button> `:''}<button class="btn small secondary" onclick="editRecord('${mod}','${r.id}')">Edit</button> <button class="btn small danger" onclick="deleteRecord('${mod}','${r.id}')">Delete</button></td></tr>`).join('')}</tbody></table></div>`}
+function renderModule(mod){let key=moduleKeys[mod],arr=records(key);return `<div class="panel"><div class="toolbar"><input id="q" placeholder="Search ${mod}..." oninput="filterTable('${mod}')"><button class="btn" onclick="openForm('${mod}')">＋ Add ${mod==='Products'?'Product':mod.slice(0,-1)||mod}</button>${opt('showCsv')?`<button class="btn secondary" onclick="exportModule('${mod}')">Export CSV</button>`:''}${opt('showPrint')?`<button class="btn secondary" onclick="printCurrent('${mod}')">Print Table / PDF</button>`:''}</div><div id="moduleTable">${tableFor(mod,arr.slice().reverse())}</div></div>`}
+function filterTable(mod){let q=$('#q').value.toLowerCase(),arr=records(moduleKeys[mod]).filter(r=>Object.values(r).join(' ').toLowerCase().includes(q));$('#moduleTable').innerHTML=tableFor(mod,arr.slice().reverse())}
+function optionsFor(kind){let map={category:db.categories,brand:db.brands,customer:db.customers,supplier:db.suppliers,product:db.products};return (map[kind]||[]).map(x=>`<option value="${esc(x.name)}">${esc(x.name)}</option>`).join('')}
+function fieldHtml(f,val=''){let [key,label,type,required]=f,req=required?'required':'';let v=val??(type==='date'?today():'');if(['category','brand','customer','supplier','product'].includes(type))return `<label class="field">${label}<select name="${key}" ${req}><option value="">Select ${label}</option>${optionsFor(type)}</select></label>`;
+if(type.startsWith('select:'))return `<label class="field">${label}<select name="${key}" ${req}>${type.slice(7).split(',').map(x=>`<option ${v===x?'selected':''}>${x}</option>`).join('')}</select></label>`;
+return `<label class="field">${label}<input name="${key}" type="${type}" value="${esc(v)}" ${req} ${type==='number'?'step="0.01"':''}></label>`}
+function openForm(mod,id=null){let cfg=configs[mod],old=id?records(moduleKeys[mod]).find(x=>x.id===id):{};$('#modalroot').innerHTML=`<div class="modalback" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modalhead"><h2>${id?'Edit':'Add'} ${cfg.title}</h2><button class="xbtn" onclick="closeModal()">✕</button></div><form id="recordForm"><div class="formgrid">${cfg.fields.map(f=>fieldHtml(f,old?.[f[0]])).join('')}</div><div class="formactions"><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn" type="submit">Save Record</button></div></form></div></div>`;
+autoFill(mod);if(id)cfg.fields.forEach(f=>{let el=$(`[name="${f[0]}"]`);if(el)el.value=old[f[0]]??''});
+$('#recordForm').onsubmit=e=>{e.preventDefault();let data=Object.fromEntries(new FormData(e.target).entries());cfg.fields.forEach(f=>{if(f[2]==='number')data[f[0]]=Number(data[f[0]]||0)});if(mod==='Sales'||mod==='Purchase'){data.total=total(data);data.due=Math.max(0,data.total-Number(data.paid||0));}if(id){if(!verifyPin('edit'))return;let idx=db[moduleKeys[mod]].findIndex(x=>x.id===id);db[moduleKeys[mod]][idx]={...db[moduleKeys[mod]][idx],...data};}else{data.id=crypto.randomUUID();data.createdAt=new Date().toISOString();db[moduleKeys[mod]].push(data);if(mod==='Sales'||mod==='Purchase'||mod==='Stock')applyStock(mod,data,1);}save();closeModal();render();};}
+function applyStock(mod,r,dir){let p=db.products.find(x=>x.name===r.product);if(!p)return;let qty=Number(r.qty||0);if(mod==='Purchase')p.qty=Number(p.qty||0)+qty*dir;else if(mod==='Sales')p.qty=Number(p.qty||0)-qty*dir;else if(mod==='Stock'){let sign=['Stock In'].includes(r.movement)?1:-1;p.qty=Number(p.qty||0)+sign*qty*dir;}}
+function verifyPin(action){let pin=prompt(`${action==='edit'?'Edit':'Delete'} করতে Admin Password দিন:`);if(pin===null)return false;if(pin!==db.settings.pin){alert('ভুল Password। কোনো পরিবর্তন করা হয়নি।');return false;}return true}
+function editRecord(mod,id){if(!verifyPin('edit'))return;/* password checked before opening */openFormNoPin(mod,id)}
+function openFormNoPin(mod,id){let cfg=configs[mod],old=records(moduleKeys[mod]).find(x=>x.id===id);$('#modalroot').innerHTML=`<div class="modalback"><div class="modal"><div class="modalhead"><h2>Edit ${cfg.title}</h2><button class="xbtn" onclick="closeModal()">✕</button></div><form id="recordForm"><div class="formgrid">${cfg.fields.map(f=>fieldHtml(f,old?.[f[0]])).join('')}</div><div class="formactions"><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button><button class="btn" type="submit">Update</button></div></form></div></div>`;cfg.fields.forEach(f=>{let el=$(`[name="${f[0]}"]`);if(el)el.value=old[f[0]]??''});if(mod==='Products')autoFill(mod);$('#recordForm').onsubmit=e=>{e.preventDefault();let data=Object.fromEntries(new FormData(e.target).entries());cfg.fields.forEach(f=>{if(f[2]==='number')data[f[0]]=Number(data[f[0]]||0)});if(mod==='Sales'||mod==='Purchase'){data.total=total(data);data.due=Math.max(0,data.total-Number(data.paid||0));}let idx=db[moduleKeys[mod]].findIndex(x=>x.id===id);if(mod==='Sales'||mod==='Purchase'||mod==='Stock')applyStock(mod,old,-1);db[moduleKeys[mod]][idx]={...old,...data};if(mod==='Sales'||mod==='Purchase'||mod==='Stock')applyStock(mod,data,1);save();closeModal();render();};}
+function deleteRecord(mod,id){if(!verifyPin('delete'))return;if(!confirm('রেকর্ডটি Recycle Bin-এ পাঠাবেন?'))return;let arr=db[moduleKeys[mod]],r=arr.find(x=>x.id===id);if(!r)return;if(['Sales','Purchase','Stock'].includes(mod))applyStock(mod,r,-1);db.trash.push({tid:crypto.randomUUID(),mod,rec:r,at:new Date().toISOString()});db[moduleKeys[mod]]=arr.filter(x=>x.id!==id);save();render();}
+function restoreTrash(t){let x=db.trash.find(z=>z.tid===t);if(!x)return;db[moduleKeys[x.mod]].push(x.rec);if(['Sales','Purchase','Stock'].includes(x.mod))applyStock(x.mod,x.rec,1);db.trash=db.trash.filter(z=>z.tid!==t);save();render()}
+function purgeTrash(t){if(!verifyPin('delete'))return;if(!confirm(t?'স্থায়ীভাবে মুছবেন?':'Recycle Bin খালি করবেন?'))return;db.trash=t?db.trash.filter(z=>z.tid!==t):[];save();render()}
+function trashPanel(){const T=db.trash||[];return `<div class="panel" style="margin-top:14px"><h3>Recycle Bin<span class="legend">${T.length} items</span></h3>${T.length?`<div class="tablewrap"><table><thead><tr><th>Module</th><th>Item</th><th>Deleted</th><th>Action</th></tr></thead><tbody>${T.slice().reverse().map(x=>`<tr><td>${x.mod}</td><td>${esc(x.rec.name||x.rec.product||x.rec.invoice||x.rec.category||x.rec.party||'—')}</td><td>${new Date(x.at).toLocaleString()}</td><td><button class="btn small success" onclick="restoreTrash('${x.tid}')">Restore</button> <button class="btn small danger" onclick="purgeTrash('${x.tid}')">Delete forever</button></td></tr>`).join('')}</tbody></table></div><div class="toolbar" style="margin:12px 0 0"><button class="btn danger small" onclick="purgeTrash(null)">Empty Recycle Bin</button></div>`:'<div class="empty">Recycle Bin খালি</div>'}</div>`}
+function setOpt(k,v){db.settings.opts=db.settings.opts||{};db.settings.opts[k]=v;save();render()}
+const sw=(k,l)=>`<label class="sw"><input type="checkbox" ${opt(k)?'checked':''} onchange="setOpt('${k}',this.checked?1:0)"><i></i><span>${l}</span></label>`;
+function optPanel(){const g=(t,a)=>`<div class="optgrp"><h4>${t}</h4>${a}</div>`,sel=(k,arr,num)=>`<select onchange="setOpt('${k}',${num?'+':''}this.value)">${arr.map(x=>`<option ${String(opt(k))===String(x)?'selected':''}>${x}</option>`).join('')}</select>`;
+return `<div class="panel" style="margin-top:14px"><h3>Display and Print Options</h3><div class="optgrid">`+g('Print and Export',sw('showPrint','Print Table / PDF button')+sw('showCsv','Export CSV button')+sw('showInvoice','Invoice button (Sales, Purchase)')+sw('showReportPrint','Report print and CSV buttons')+sw('printHeader','Company name on printed tables')+`<label class="field">Paper size${sel('paper',['A4','A5','Thermal 80mm'])}</label>`)+g('Invoice',sw('invContact','Phone and address')+sw('invPaid','Paid and due amount'))+g('Dashboard',sw('showFinance','Receivable, Payable, Profit cards')+sw('showChart','Sales chart')+sw('showAlert','Stock alert')+sw('showRecent','Recent sales and purchases')+`<label class="field">Recent rows${sel('recentRows',[5,6,10,20],1)}</label>`)+g('Menu',['Products','Categories','Brands','Stock','Sales','Purchase','Customers','Suppliers','Expenses','Payments','Reports','Users'].map(x=>sw('nav_'+x,x)).join(''))+`</div></div>`}
+function printInvoice(mod,id){let r=records(moduleKeys[mod]).find(x=>x.id===id);if(!r)return;let w=window.open('','_blank');if(!w){alert('Popup allow করুন');return}let c=db.settings,t=total(r),paid=Number(r.paid||0),party=mod==='Sales'?r.customer:r.supplier;
+w.document.write(`<html><head><title>${esc(r.invoice||'Invoice')}</title><style>@page{size:${paperCss()}}body{font:13px system-ui,"Noto Sans Bengali",Arial;margin:0;padding:34px;color:#14213d}.top{display:flex;justify-content:space-between;border-bottom:3px solid #0f2a5c;padding-bottom:14px}h1{margin:0;color:#0f2a5c;font-size:26px}.m{color:#64748b;font-size:12px}table{width:100%;border-collapse:collapse;margin:22px 0}th{background:#0f2a5c;color:#fff;text-align:left;padding:9px}td{padding:10px 9px;border-bottom:1px solid #e2e8f0}.r{text-align:right}.sum{margin-left:auto;width:260px}.sum div{display:flex;justify-content:space-between;padding:5px 0}.sum .big{font-weight:800;font-size:16px;border-top:2px solid #0f2a5c;margin-top:4px;padding-top:8px}.ft{text-align:center;color:#64748b;margin-top:40px}</style></head><body><div class="top"><div><h1>${esc(c.company||'POSPRO')}</h1>${opt('invContact')?`<div class="m">${esc(c.phone||'')}<br>${esc(c.address||'')}</div>`:''}</div><div class="r"><h1 style="font-size:20px">${mod==='Sales'?'INVOICE':'PURCHASE BILL'}</h1><div class="m">No: ${esc(r.invoice||'—')}<br>Date: ${esc(r.date||'')}</div></div></div><p><b>${mod==='Sales'?'Bill To':'Supplier'}:</b> ${esc(party||'Walk-in')}</p><table><thead><tr><th>Product</th><th class="r">Qty</th><th class="r">Price</th><th class="r">Amount</th></tr></thead><tbody><tr><td>${esc(r.product)}</td><td class="r">${r.qty}</td><td class="r">${money(r.price)}</td><td class="r">${money(r.qty*r.price)}</td></tr></tbody></table><div class="sum"><div><span>Subtotal</span><span>${money(r.qty*r.price)}</span></div><div><span>Discount</span><span>- ${money(r.discount)}</span></div><div class="big"><span>Total</span><span>${money(t)}</span></div>${opt('invPaid')?`<div><span>Paid</span><span>${money(paid)}</span></div><div><span>Due</span><span>${money(Math.max(0,t-paid))}</span></div>`:''}</div><div class="ft">${esc(c.footer||'ধন্যবাদ, আবার আসবেন!')}</div><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+function autoFill(mod){if(mod==='Products'){let k=$('[name="sku"]');if(k){k.readOnly=true;k.style.background='#f1f4f9';k.style.color='#5d6b83';if(!k.value){let n=db.products.reduce((m,x)=>{let g=/^SKU-(\d+)$/.exec(x.sku||'');return g?Math.max(m,+g[1]):m},0);k.value='SKU-'+String(n+1).padStart(5,'0')}}return}if(mod!=='Sales'&&mod!=='Purchase')return;let iv=$('[name="invoice"]');if(iv&&!iv.value)iv.value=(mod==='Sales'?'INV-':'PUR-')+String(db[moduleKeys[mod]].length+1).padStart(4,'0');let sel=$('[name="product"]'),pr=$('[name="price"]');if(sel&&pr)sel.onchange=()=>{let p=db.products.find(x=>x.name===sel.value);if(p)pr.value=mod==='Sales'?p.salePrice:p.purchasePrice}}
+function closeModal(){$('#modalroot').innerHTML=''}
+function reports(){return `<div class="panel"><div class="reportfilters">
+<label class="field">Module<select id="rfmod"><option value="All">All Modules</option>${Object.keys(moduleKeys).map(x=>`<option>${x}</option>`).join('')}</select></label>
+<label class="field">From Date<input type="date" id="rfrom"></label><label class="field">To Date<input type="date" id="rto"></label>
+<label class="field">Search<input id="rsearch" placeholder="Name, invoice, product..."></label><label class="field">Status / Type<input id="rstatus" placeholder="Paid, Cash, etc."></label></div>
+<div class="toolbar"><button class="btn" onclick="runReport()">Generate Report</button>${opt('showReportPrint')?`<button class="btn secondary" onclick="printReport()">Print Table / PDF</button><button class="btn secondary" onclick="exportReport()">Download CSV</button>`:''}</div><div id="reportSummary" class="hint"></div><div id="reportTable"></div></div>`}
+function runReport(){let mod=$('#rfmod').value,from=$('#rfrom').value,to=$('#rto').value,q=$('#rsearch').value.toLowerCase(),st=$('#rstatus').value.toLowerCase();reportRows=[];Object.entries(moduleKeys).filter(([m])=>mod==='All'||m===mod).forEach(([m,k])=>db[k].forEach(r=>{let d=r.date||r.createdAt?.slice(0,10)||'';if(from&&d&&d<from)return;if(to&&d&&d>to)return;if(q&&!Object.values(r).join(' ').toLowerCase().includes(q))return;if(st&&!Object.values(r).join(' ').toLowerCase().includes(st))return;reportRows.push({module:m,...r,reportTotal:total(r)||Number(r.amount||0)})}));$('#reportSummary').textContent=`মোট ${reportRows.length}টি রেকর্ড • মোট প্রদর্শিত মূল্য ${money(sum(reportRows,'reportTotal'))}`;$('#reportTable').innerHTML=reportRows.length?`<div class="tablewrap"><table><thead><tr><th>Module</th><th>Date</th><th>Name / Product / Party</th><th>Invoice / SKU</th><th>Qty</th><th>Amount</th><th>Details</th></tr></thead><tbody>${reportRows.map(r=>`<tr><td>${r.module}</td><td>${esc(r.date||'—')}</td><td>${esc(r.name||r.product||r.customer||r.supplier||r.party||r.category||'—')}</td><td>${esc(r.invoice||r.sku||'—')}</td><td>${esc(r.qty??'—')}</td><td>${money(r.reportTotal)}</td><td>${esc(r.note||r.description||r.reason||'')}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">এই Filter-এ কোনো রেকর্ড পাওয়া যায়নি</div>'}
+function csv(rows){if(!rows.length){alert('Export করার মতো ডাটা নেই');return}let keys=[...new Set(rows.flatMap(x=>Object.keys(x)))];let text=[keys.join(','),...rows.map(r=>keys.map(k=>'"'+String(r[k]??'').replace(/"/g,'""')+'"').join(','))].join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+text],{type:'text/csv;charset=utf-8'}));a.download='POSPRO-report-'+today()+'.csv';a.click();URL.revokeObjectURL(a.href)}
+function exportReport(){csv(reportRows)}function exportModule(mod){csv(records(moduleKeys[mod]))}
+function printReport(){if(!reportRows.length)runReport();printRows('POSPRO Report',reportRows)}function printCurrent(mod){printRows('POSPRO '+mod,records(moduleKeys[mod]))}
+function printRows(title,rows){let w=window.open('','_blank');if(!w){alert('Print window blocked. Browser popup allow করুন।');return}w.document.write(`<html><head><title>${title}</title><style>@page{size:${paperCss()}}body{font:12px Arial;padding:25px}h2{text-align:center}table{width:100%;border-collapse:collapse}th,td{border:1px solid #bbb;padding:7px;text-align:left}th{background:#eee}.meta{margin:15px 0}</style></head><body><h2>${opt('printHeader')?esc(db.settings.company||'POSPRO')+' — ':''}${title}</h2><div class="meta">Printed: ${new Date().toLocaleString()}</div><table><thead><tr><th>#</th><th>Date</th><th>Name / Product / Party</th><th>Invoice</th><th>Qty</th><th>Amount</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.date||'')}</td><td>${esc(r.name||r.product||r.customer||r.supplier||r.party||r.category||'')}</td><td>${esc(r.invoice||'')}</td><td>${esc(r.qty??'')}</td><td>${money(total(r)||r.amount||r.reportTotal||0)}</td></tr>`).join('')}</tbody></table><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+function settings(){return `<div class="grid2"><div class="panel"><h3>Company & Security Settings</h3><form id="settingsForm" class="formgrid"><label class="field">Company Name<input name="company" value="${esc(db.settings.company)}" required></label><label class="field">Currency Symbol<input name="currency" value="${esc(db.settings.currency)}"></label><label class="field">Phone<input name="phone" value="${esc(db.settings.phone)}"></label><label class="field">Address<input name="address" value="${esc(db.settings.address)}"></label><label class="field">Invoice Footer<input name="footer" value="${esc(db.settings.footer)}"></label><label class="field">Admin Password<input name="pin" type="text" value="${esc(db.settings.pin)}" required autocomplete="off"></label><div class="formactions field full"><button class="btn">Save Settings</button></div></form></div><div class="panel"><h3>Backup & Restore</h3><div class="toolbar"><button class="btn" onclick="backup()">⬇ Export Full Backup</button><label class="btn secondary">⬆ Restore Backup<input type="file" accept="application/json" hidden onchange="restore(event)"></label></div><button class="btn danger" onclick="clearAll()" style="margin-top:4px">Delete All Local Data</button></div></div>${optPanel()}${trashPanel()}`}
+function backup(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.download='POSPRO-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
+function restore(e){let f=e.target.files[0];if(!f)return;let rd=new FileReader();rd.onload=()=>{try{let x=JSON.parse(rd.result);if(!x.products||!x.settings)throw Error();if(!confirm('বর্তমান ডাটা Backup দিয়ে Replace হবে। চালাবেন?'))return;db=x;save();render();alert('Backup Restore হয়েছে।')}catch(err){alert('Backup ফাইল সঠিক নয়।')}};rd.readAsText(f)}
+function clearAll(){if(!verifyPin('delete')||!confirm('সব লোকাল ডাটা স্থায়ীভাবে মুছবেন? আগে Backup নিয়েছেন?'))return;localStorage.removeItem(dbKey);location.reload()}
+
+function cloudMessage(msg, bad=false){
+  const el=document.getElementById('cloudStatus');
+  if(el){el.textContent=msg;el.style.color=bad?'#b42332':'#087c45';}
+  const side=document.getElementById('cloudSideStatus');
+  if(side) side.textContent=cloudUser?'Cloud: Connected':(bad?'Cloud: Error':'Cloud: Not connected');
+}
+function cloudValues(){
+  return {
+    endpoint:($('#awEndpoint')?.value||'').trim().replace(/\/+$/,''),
+    project:($('#awProject')?.value||'').trim(),
+    database:($('#awDatabase')?.value||'').trim(),
+    collection:($('#awCollection')?.value||'').trim()
+  };
+}
+function saveCloudConfig(){
+  const c=cloudValues();
+  if(!c.endpoint||!c.project||!c.database||!c.collection){
+    alert('Endpoint, Project ID, Database ID এবং Table ID পূরণ করুন।');return;
+  }
+  if(!/^https:\/\/.+\/v1$/.test(c.endpoint)){
+    alert('Endpoint অবশ্যই https://.../v1 ফরম্যাটে দিন।');return;
+  }
+  localStorage.setItem(cloudConfigKey,JSON.stringify(c));
+  cloudMessage('Cloud configuration saved. এখন Create Account অথবা Login করুন।');
+  alert('Cloud configuration সেভ হয়েছে।');
+}
+function initCloud(){
+  const c=readCloudConfig();
+  if(!c.endpoint||!c.project||!c.database||!c.collection) throw new Error('Cloud settings অসম্পূর্ণ।');
+  if(!window.Appwrite) throw new Error('Appwrite SDK লোড হয়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন।');
+  const client=new Appwrite.Client().setEndpoint(c.endpoint).setProject(c.project);
+  cloudClient=client;
+  cloudAccount=new Appwrite.Account(client);
+  cloudDatabases=new Appwrite.TablesDB(client);
+  return c;
+}
+async function createCloudAccount(){
+  try{
+    const c=cloudValues();
+    if(!c.endpoint||!c.project||!c.database||!c.collection){saveCloudConfig();return;}
+    localStorage.setItem(cloudConfigKey,JSON.stringify(c));
+    initCloud();
+    const email=$('#awEmail').value.trim(), password=$('#awPassword').value, name=$('#awName').value.trim()||'POSPRO Admin';
+    if(!email||password.length<8){alert('সঠিক Email এবং কমপক্ষে ৮ অক্ষরের Password দিন।');return;}
+    await cloudAccount.create({userId:Appwrite.ID.unique(),email,password,name});
+    await cloudAccount.createEmailPasswordSession({email,password});
+    cloudUser=await cloudAccount.get();
+    cloudMessage('Appwrite account তৈরি হয়েছে এবং Login সফল। এখন Sync করুন।');
+    alert('Cloud account তৈরি ও Login সফল হয়েছে।');
+  }catch(e){cloudMessage('Account তৈরি হয়নি: '+(e.message||e),true);}
+}
+async function loginCloud(){
+  try{
+    const c=cloudValues();
+    if(c.endpoint&&c.project&&c.database&&c.collection) localStorage.setItem(cloudConfigKey,JSON.stringify(c));
+    initCloud();
+    const email=$('#awEmail').value.trim(), password=$('#awPassword').value;
+    if(!email||!password){alert('Email এবং Password দিন।');return;}
+    try{await cloudAccount.createEmailPasswordSession({email,password});}
+    catch(e){
+      // A session may already exist; verify it before surfacing the login error.
+      try{await cloudAccount.get();}catch(_){throw e;}
+    }
+    cloudUser=await cloudAccount.get();
+    cloudMessage('Cloud login সফল: '+(cloudUser.email||cloudUser.$id));
+    alert('Appwrite Cloud-এ Login সফল হয়েছে।');
+  }catch(e){cloudUser=null;cloudMessage('Login ব্যর্থ: '+(e.message||e),true);}
+}
+async function logoutCloud(){
+  try{if(cloudAccount)await cloudAccount.deleteSession('current');}catch(e){}
+  cloudUser=null;cloudMessage('Cloud থেকে Logout করা হয়েছে।');
+}
+async function syncCloud(showAlert=true){
+  if(cloudBusy)return;
+  try{
+    if(!cloudUser||!cloudDatabases){initCloud();cloudUser=await cloudAccount.get();}
+    const c=readCloudConfig();
+    cloudBusy=true;cloudMessage('Cloud-এ ডাটা Sync হচ্ছে…');
+    const payload=JSON.stringify(db);
+    if(payload.length>700000) throw new Error('ডাটার আকার অনেক বড়। একক Cloud document সীমার কাছাকাছি/বেশি হতে পারে; আলাদা টেবিলভিত্তিক sync প্রয়োজন।');
+    const data={payload,ownerId:cloudUser.$id,updatedAt:new Date().toISOString()};
+    const perms=[
+      Appwrite.Permission.read(Appwrite.Role.user(cloudUser.$id)),
+      Appwrite.Permission.update(Appwrite.Role.user(cloudUser.$id)),
+      Appwrite.Permission.delete(Appwrite.Role.user(cloudUser.$id))
+    ];
+    try{
+      await cloudDatabases.createRow({databaseId:c.database,tableId:c.collection,rowId:'pospro_'+cloudUser.$id,data,permissions:perms});
+    }catch(createErr){
+      if(createErr.code===409){
+        await cloudDatabases.updateRow({databaseId:c.database,tableId:c.collection,rowId:'pospro_'+cloudUser.$id,data,permissions:perms});
+      }else throw createErr;
+    }
+    cloudLastSync=new Date().toLocaleString();
+    cloudMessage('Cloud Sync সফল • '+cloudLastSync);
+    if(showAlert)alert('POSPRO ডাটা Cloud-এ Sync হয়েছে।');
+  }catch(e){
+    cloudMessage('Cloud Sync ব্যর্থ: '+(e.message||e)+'। Table permission/columns পরীক্ষা করুন।',true);
+    if(showAlert)alert('Cloud Sync হয়নি: '+(e.message||e));
+  }finally{cloudBusy=false;}
+}
+async function loadCloud(){
+  try{
+    if(!cloudUser||!cloudDatabases){initCloud();cloudUser=await cloudAccount.get();}
+    const c=readCloudConfig();
+    if(!confirm('Cloud-এর ডাটা দিয়ে এই ডিভাইসের বর্তমান Local ডাটা Replace হবে। আগে Backup নিয়েছেন?'))return;
+    const doc=await cloudDatabases.getRow({databaseId:c.database,tableId:c.collection,rowId:'pospro_'+cloudUser.$id});
+    const incoming=JSON.parse(doc.payload);
+    if(!incoming||!incoming.products||!incoming.settings)throw new Error('Cloud row-এ POSPRO ডাটা সঠিক নয়।');
+    db=incoming;
+    localStorage.setItem(dbKey,JSON.stringify(db));
+    cloudMessage('Cloud data load সফল • '+(doc.updatedAt||''));
+    render();
+    alert('Cloud Data এই ডিভাইসে Restore হয়েছে।');
+  }catch(e){cloudMessage('Cloud Load ব্যর্থ: '+(e.message||e),true);alert('Cloud Load হয়নি: '+(e.message||e));}
+}
+function fillCloudSettings(){
+  const c=readCloudConfig();
+  if($('#awEndpoint'))$('#awEndpoint').value=c.endpoint||'';
+  if($('#awProject'))$('#awProject').value=c.project||'';
+  if($('#awDatabase'))$('#awDatabase').value=c.database||'';
+  if($('#awCollection'))$('#awCollection').value=c.collection||'';
+  if($('#cloudStatus'))cloudMessage(cloudUser?'Cloud account connected':'Cloud configuration দিন এবং Login করুন।');
+}
+
+function render(){applyNav();let v=$('#view');if(current==='Dashboard')v.innerHTML=dashboard();else if(current==='Reports')v.innerHTML=reports();else if(current==='Settings')v.innerHTML=settings();else if(configs[current])v.innerHTML=renderModule(current);else v.innerHTML='<div class="panel empty">এই পেজের জন্য এখনো আলাদা ফিচার যোগ করা হয়নি।</div>';if(current==='Settings'){fillCloudSettings();$('#settingsForm').onsubmit=e=>{e.preventDefault();let f=new FormData(e.target);db.settings.company=f.get('company');db.settings.phone=f.get('phone')||'';db.settings.address=f.get('address')||'';db.settings.footer=f.get('footer')||'';db.settings.currency=f.get('currency')||'৳';if(f.get('pin'))db.settings.pin=f.get('pin');save();alert('Settings saved');render()}}}
+window.restoreTrash=restoreTrash;window.purgeTrash=purgeTrash;window.printInvoice=printInvoice;window.setOpt=setOpt;window.go=go;window.openForm=openForm;window.editRecord=editRecord;window.deleteRecord=deleteRecord;window.closeModal=closeModal;window.filterTable=filterTable;window.exportModule=exportModule;window.printCurrent=printCurrent;window.runReport=runReport;window.printReport=printReport;window.exportReport=exportReport;window.backup=backup;window.restore=restore;window.clearAll=clearAll;
+window.saveCloudConfig=saveCloudConfig;window.createCloudAccount=createCloudAccount;
+window.loginCloud=loginCloud;window.logoutCloud=logoutCloud;
+window.syncCloud=syncCloud;window.loadCloud=loadCloud;
+render();
+(async()=>{try{const c=readCloudConfig();if(c.endpoint&&c.project){initCloud();cloudUser=await cloudAccount.get();const s=document.getElementById('cloudSideStatus');if(s)s.textContent='Cloud: Connected';}}catch(e){cloudUser=null;}})();
+
+(function(){const lg=document.getElementById('login'),ok=()=>{try{return sessionStorage.getItem('pos_in')==='1'}catch(e){return false}};
+const show=()=>lg.classList.toggle('hidden',ok());
+document.getElementById('loginForm').onsubmit=e=>{e.preventDefault();const f=document.getElementById('lgPass');if(f.value===String(db.settings.pin)){try{sessionStorage.setItem('pos_in','1')}catch(_){}f.value='';show()}else alert('ভুল Password')};
+window.logout=()=>{try{sessionStorage.removeItem('pos_in')}catch(_){}show()};show()})();
+</script></body></html>
